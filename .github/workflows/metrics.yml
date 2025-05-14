@@ -9,9 +9,18 @@ jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
+      # Langkah untuk membersihkan cache (opsional, untuk menghindari konflik cache)
+      - name: Clear GitHub Actions Cache
+        run: |
+          echo "Clearing cache..."
+          rm -rf ${{ runner.temp }}/_github_home
+          rm -rf ${{ runner.temp }}/_github_work
+
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Generate GitHub Metrics
       - name: Generate GitHub Metrics
         uses: lowlighter/metrics@latest
         with:
